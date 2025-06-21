@@ -6,6 +6,8 @@ from tensorflow.keras.preprocessing.image import img_to_array
 import json
 import io
 from PIL import Image
+import os
+import requests
 
 # ✅ Create FastAPI instance
 app = FastAPI()
@@ -17,6 +19,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1bM4hQm502mIQ9vfJaWr6aHRJ5Grn3V5T"
+MODEL_PATH = "model.h5"
+
+# Check if model exists
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model.h5...")
+    with requests.get(MODEL_URL, stream=True) as r:
+        r.raise_for_status()
+        with open(MODEL_PATH, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+    print("✅ model.h5 downloaded!")
 
 # ✅ Load model
 model = load_model("model.h5")
