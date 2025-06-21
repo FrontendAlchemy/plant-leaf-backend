@@ -87,3 +87,7 @@ async def predict_leaf(file: UploadFile = File(...)):
     "recommended_treatment": details.get("recommended_treatment", "Not available"),
     "symptoms": details.get("symptoms", "Not available")
 }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
