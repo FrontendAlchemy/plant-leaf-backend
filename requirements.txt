@@ -1,8 +1,9 @@
 fastapi
 uvicorn
-tensorflow
+tensorflow-cpu
 numpy
 opencv-python
 Pillow
 matplotlib
 python-multipart
+requests
